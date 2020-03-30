@@ -1,7 +1,8 @@
 import requests
-import numpy as np
+# import numpy as np
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import sys
 import dump
 
 oos_strings = {"not available", "check stores", "sold out", "see all buying options"}
@@ -35,7 +36,7 @@ def get_status(address, tag, attr, value, headers=False):
     else:
         get_request = requests.get(address).text
     doc = BeautifulSoup(get_request, 'html.parser')
-    print(doc.prettify())
+    # print(doc.prettify())
     rows = doc.find_all(tag, {attr: value}, limit=1)
     for row in rows:
         stock = row.getText().strip().lower()
@@ -54,6 +55,6 @@ for url in best_buy:
 
 for url in amazon:
     get_status(url, "a", "class", "a-button-text", headers=True)
-
-for url in gamestop:
-    get_status(url, "div", "class", "add-to-cart-buttons", headers=True)
+#
+# for url in gamestop:
+#     get_status(url, "div", "class", "add-to-cart-buttons", headers=True)
