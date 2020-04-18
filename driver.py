@@ -8,16 +8,8 @@ from email.mime.text import MIMEText
 import requests
 from bs4 import BeautifulSoup
 
-import dump
-
 oos_strings = {"not available", "check stores", "sold out", "see all buying options"}
 header = {'User-Agent': 'Chrome/57.0.2987.110 '}
-headerbb = {'User-Agent':   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                            'AppleWebKit/537.36 (KHTML, like Gecko) '
-                            'Chrome/76.0.3809.132 Safari/537.36'}
-headergs = {'User-Agent':   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) '
-                            'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 '
-                            'Safari/605.1.15'}
 stock_informer = ["https://www.stockinformer.com/checker-nintendo-switch-console"]
 retailer_list = []
 product_list = []
@@ -42,12 +34,7 @@ def get_status(address, tag, attr, value, headers=False):
 
     if headers:
         # use specific header for bestbuy
-        if "bestbuy" in address:
-            get_request = requests.get(address, headers=headerbb).text
-        elif "gamestop" in address:
-            get_request = requests.get(address, headers=dump.headergs).text
-        else:
-            get_request = requests.get(address, headers=header).text
+        get_request = requests.get(address, headers=header).text
     else:
         get_request = requests.get(address).text
     doc = BeautifulSoup(get_request, 'html.parser')
@@ -100,3 +87,4 @@ def send_email(product, status, retailer):
 
 for url in stock_informer:
     get_status(url, "table", "id", "TblFeed", headers=True)
+
