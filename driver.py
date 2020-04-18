@@ -33,7 +33,6 @@ password = args["password"]
 
 
 def get_status(address, tag, attr, value, headers=False):
-    send_email("1", "noob", "3")
     # Clear out global lists
     retailer_list.clear()
     product_list.clear()
