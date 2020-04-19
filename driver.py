@@ -1,6 +1,7 @@
 import smtplib
 import ssl
 import argparse
+import time
 from collections import defaultdict
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -63,6 +64,7 @@ def get_status(address, tag, attr, value, headers=False):
     check_last_stock()
     if in_stock_list:
         send_email()
+        return True
 
 
 def check_last_stock():
@@ -111,4 +113,8 @@ def clear_lists():
 
 
 for url in stock_informer:
-    get_status(url, "table", "id", "TblFeed", headers=True)
+    while(True):
+        print("Checking stock...")
+        time.sleep(10)
+        if(get_status(url, "table", "id", "TblFeed", headers=True)):
+            sys.exit()
