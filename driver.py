@@ -2,6 +2,7 @@ import smtplib
 import ssl
 import argparse
 import time
+import sys
 from collections import defaultdict
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -116,5 +117,5 @@ for url in stock_informer:
     while(True):
         print("Checking stock...")
         time.sleep(10)
-        if(get_status(url, "table", "id", "TblFeed", headers=True)):
+        if get_status(url, "table", "id", "TblFeed", headers=True):
             sys.exit()
