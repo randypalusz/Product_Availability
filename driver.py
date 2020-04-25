@@ -114,7 +114,7 @@ def clear_lists():
 
 
 for url in stock_informer:
-    while(True):
+    while True:
         print("Checking stock...")
         time.sleep(10)
         if get_status(url, "table", "id", "TblFeed", headers=True):
